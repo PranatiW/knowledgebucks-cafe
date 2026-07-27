@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Thoughts, reflections and learning notes from KnowledgeBucks Cafe.">
+<title>Thoughts & Reflections | KnowledgeBucks Cafe</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.thoughts-hero{padding:75px 0 28px;text-align:center}
+.thoughts-hero p{max-width:780px;margin:15px auto 0}
+.thought-toolbar{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:25px 0 32px}
+.thought-filter{border:1px solid var(--line);background:#ffffff0b;color:#fff;padding:10px 16px;border-radius:999px;font-weight:800}
+.thought-filter.active,.thought-filter:hover{background:linear-gradient(90deg,var(--pink),var(--purple))}
+.thought-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.thought-card{position:relative;overflow:hidden;padding:25px;border-radius:25px;background:linear-gradient(145deg,#ffffff12,#ffffff06);border:1px solid var(--line);transition:.3s}
+.thought-card:hover{transform:translateY(-7px);border-color:#ff71ad66;box-shadow:0 20px 45px #ff4f9a20}
+.thought-card::before{content:"“";position:absolute;right:17px;top:4px;color:#ffb6d533;font-family:Georgia,serif;font-size:5rem;line-height:1}
+.thought-meta{display:flex;justify-content:space-between;gap:12px;margin-bottom:13px;color:var(--light);font-size:.8rem;font-weight:900;text-transform:uppercase;letter-spacing:.7px}
+.thought-card h3{margin:0 0 10px;padding-right:38px}
+.thought-text{font-size:1.03rem;line-height:1.8}
+.thought-author{margin-top:18px;color:#fff;font-weight:800}
+.empty-state{display:none;text-align:center;padding:40px;color:var(--muted)}
+@media(max-width:900px){.thought-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.thought-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="navbar">
+<div class="brand"><div class="brand-mark">K</div>KnowledgeBucks Cafe <span>~ Pranat</span></div>
+<button class="menu-btn" aria-label="Menu">☰</button>
+<nav class="nav-links">
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="certifications.html">Certifications</a>
+<a href="projects.html">Projects</a>
+<a href="achievements.html">Achievements</a>
+<a href="thoughts.html">Thoughts</a>
+<a href="hobbies.html">Hobbies</a>
+<a href="blogs.html">Blogs</a>
+<a href="cloud-roadmap.html">Cloud Roadmap</a>
+<a href="kucl-career.html">KUCL Career</a>
+<a href="contact.html">Contact</a>
+</nav>
+</header>
+
+<main class="container">
+<section class="thoughts-hero">
+<div class="eyebrow">Ideas · Reflections · Learning</div>
+<h1><span class="gradient">Thoughts & Reflections</span></h1>
+<p class="lead">A personal space for short ideas, motivation, technical reflections and messages for students and lifelong learners.</p>
+</section>
+
+<section>
+<div class="thought-toolbar" id="thoughtFilters"></div>
+<div class="thought-grid" id="thoughtGrid"></div>
+<div class="empty-state" id="emptyState">No thoughts are available in this category.</div>
+</section>
+</main>
+
+<footer>KnowledgeBucks Cafe ~ Pranat · Certified · Curious · Creative</footer>
+
+<script src="thoughts-data.js"></script>
+<script src="script.js"></script>
+<script>
+const grid=document.getElementById("thoughtGrid");
+const filters=document.getElementById("thoughtFilters");
+const emptyState=document.getElementById("emptyState");
+let currentFilter="All";
+
+function escapeHtml(text){
+  return String(text).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));
+}
+function allThoughts(){
+  return [...PUBLISHED_THOUGHTS].sort((a,b)=>new Date(b.date)-new Date(a.date));
+}
+function renderFilters(){
+  const cats=["All",...new Set(allThoughts().map(x=>x.category))];
+  filters.innerHTML=cats.map(cat=>`<button class="thought-filter ${cat===currentFilter?"active":""}" data-filter="${escapeHtml(cat)}">${escapeHtml(cat)}</button>`).join("");
+}
+function render(){
+  const items=allThoughts().filter(x=>currentFilter==="All"||x.category===currentFilter);
+  grid.innerHTML=items.map(item=>`
+  <article class="thought-card">
+    <div class="thought-meta">
+      <span>${escapeHtml(item.category)}</span>
+      <span>${escapeHtml(item.date)}</span>
+    </div>
+    <h3>${escapeHtml(item.title)}</h3>
+    <p class="thought-text">${escapeHtml(item.thought)}</p>
+    <div class="thought-author">— ${escapeHtml(item.author)}</div>
+  </article>`).join("");
+  emptyState.style.display=items.length?"none":"block";
+  renderFilters();
+}
+filters.addEventListener("click",e=>{
+  if(!e.target.matches(".thought-filter"))return;
+  currentFilter=e.target.dataset.filter;
+  render();
+});
+render();
+</script>
+</body>
+</html>

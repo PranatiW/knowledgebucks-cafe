@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="Interactive hobbies page of KnowledgeBucks Cafe featuring gym, swimming, football, bike riding and reading.">
+<title>Hobbies | KnowledgeBucks Cafe</title>
+<style>
+:root{
+  --bg:#0b0709;
+  --panel:#1a0d12;
+  --panel2:#251018;
+  --accent:#ef233c;
+  --accent2:#ff758f;
+  --text:#fff7f8;
+  --muted:#e8cfd5;
+  --line:rgba(255,255,255,.12);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 10% 10%,rgba(239,35,60,.18),transparent 28%),
+    radial-gradient(circle at 90% 20%,rgba(255,117,143,.10),transparent 25%),
+    linear-gradient(180deg,#090507,#12090d 55%,#080507);
+}
+a{color:inherit}
+.navbar{
+  position:sticky;
+  top:0;
+  z-index:20;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:16px 5%;
+  border-bottom:1px solid var(--line);
+  background:rgba(8,5,7,.85);
+  backdrop-filter:blur(14px);
+}
+.brand{font-weight:900;letter-spacing:.3px}
+.brand span{color:var(--accent2)}
+.nav-links{display:flex;gap:15px;flex-wrap:wrap}
+.nav-links a{
+  text-decoration:none;
+  color:#f4dbe1;
+  font-size:.92rem;
+}
+.nav-links a:hover,.nav-links a.active{color:#fff}
+.menu-btn{display:none}
+.hero{
+  max-width:1200px;
+  margin:auto;
+  padding:72px 24px 35px;
+  text-align:center;
+}
+.eyebrow{
+  display:inline-block;
+  padding:8px 13px;
+  border:1px solid rgba(255,117,143,.35);
+  border-radius:999px;
+  color:#ffd9e1;
+  background:rgba(239,35,60,.08);
+  font-size:.85rem;
+  text-transform:uppercase;
+  letter-spacing:1.8px;
+}
+.hero h1{
+  margin:20px auto 14px;
+  font-size:clamp(2.5rem,7vw,5.5rem);
+  line-height:.98;
+}
+.gradient{
+  background:linear-gradient(90deg,#fff,#ff97aa,#ef233c);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+.hero p{
+  max-width:720px;
+  margin:auto;
+  color:var(--muted);
+  line-height:1.8;
+}
+.grid{
+  max-width:1280px;
+  margin:20px auto 70px;
+  padding:0 24px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:24px;
+}
+.card{
+  position:relative;
+  min-height:390px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:24px;
+  background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
+  box-shadow:0 18px 55px rgba(0,0,0,.35);
+  cursor:pointer;
+  transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease;
+}
+.card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 26px 70px rgba(239,35,60,.22);
+  border-color:rgba(255,117,143,.5);
+}
+.art{
+  height:250px;
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(145deg,#2f111b,#11080c);
+}
+.art svg{width:100%;height:100%;display:block}
+.card-body{padding:22px}
+.card h2{margin:0 0 8px;font-size:1.45rem;color:#fff1f4}
+.card p{margin:0;color:#dcbfc7;line-height:1.7}
+.open-hint{
+  display:inline-block;
+  margin-top:16px;
+  color:#ff9eb0;
+  font-weight:800;
+  font-size:.9rem;
+}
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:100;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(0,0,0,.82);
+  backdrop-filter:blur(8px);
+}
+.modal.active{display:flex}
+.modal-content{
+  position:relative;
+  width:min(900px,96vw);
+  max-height:88vh;
+  overflow:auto;
+  padding:30px;
+  border:1px solid rgba(255,117,143,.35);
+  border-radius:24px;
+  background:linear-gradient(160deg,#221017,#11090d);
+  box-shadow:0 30px 90px rgba(0,0,0,.65);
+}
+.close{
+  position:sticky;
+  float:right;
+  top:0;
+  width:42px;
+  height:42px;
+  border:1px solid var(--line);
+  border-radius:50%;
+  color:#fff;
+  background:#2a1018;
+  font-size:25px;
+  cursor:pointer;
+}
+.modal-content h2{color:#fff;margin-top:2px}
+.modal-content h3{color:#ffb2c1;margin-top:25px}
+.modal-content p,.modal-content li{color:#ead5da;line-height:1.75}
+.info-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:14px;
+}
+.info-box{
+  padding:16px;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:rgba(255,255,255,.035);
+}
+.info-box strong{display:block;color:#ffafbe;margin-bottom:6px}
+.publication-card{
+  margin:14px 0;
+  padding:18px;
+  border:1px solid rgba(255,138,166,.30);
+  border-radius:16px;
+  background:#28131a;
+}
+.publication-card h4{margin:0 0 8px;color:#ffc2d1}
+.action-link{
+  display:inline-block;
+  margin:9px 8px 0 0;
+  padding:10px 14px;
+  border-radius:10px;
+  background:linear-gradient(135deg,#ef233c,#991b1b);
+  color:#fff;
+  font-weight:800;
+  text-decoration:none;
+}
+.note{
+  padding:14px 16px;
+  border-left:4px solid var(--accent);
+  border-radius:8px;
+  background:rgba(239,35,60,.08);
+}
+footer{
+  padding:32px 20px;
+  text-align:center;
+  color:#caaab3;
+  border-top:1px solid var(--line);
+}
+@media(max-width:900px){
+  .nav-links{display:none}
+  .menu-btn{display:block;background:none;border:0;color:#fff;font-size:25px}
+  .hero{padding-top:48px}
+}
+
+.route-hero{
+  position:relative;
+  overflow:hidden;
+  min-height:230px;
+  margin:18px 0 24px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:20px;
+  background:
+    linear-gradient(rgba(5,8,6,.22),rgba(5,8,6,.72)),
+    url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=85') center/cover;
+}
+.route-road{
+  position:absolute;
+  left:-10%;
+  bottom:-35px;
+  width:120%;
+  height:115px;
+  background:#2b292a;
+  border-top:4px solid rgba(255,255,255,.35);
+  transform:rotate(-3deg);
+}
+.route-road:after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:48px;
+  height:6px;
+  background:repeating-linear-gradient(90deg,#f7d45c 0 60px,transparent 60px 105px);
+}
+.ride-bike{
+  position:absolute;
+  left:-120px;
+  bottom:62px;
+  font-size:54px;
+  filter:drop-shadow(0 8px 8px rgba(0,0,0,.5));
+  animation:rideAcross 8s linear infinite;
+}
+.route-caption{
+  position:relative;
+  z-index:2;
+  padding:28px;
+  max-width:570px;
+}
+.route-caption h3{margin:0 0 8px!important;color:#fff!important;font-size:1.8rem}
+.route-caption p{margin:0;color:#fff!important;text-shadow:0 2px 10px #000}
+@keyframes rideAcross{
+  0%{left:-120px;transform:translateY(0) rotate(-2deg)}
+  48%{transform:translateY(-4px) rotate(1deg)}
+  100%{left:105%;transform:translateY(0) rotate(-2deg)}
+}
+.ghat-gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(225px,1fr));
+  gap:16px;
+  margin:16px 0 24px;
+}
+.ghat-card{
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:17px;
+  background:#201016;
+  box-shadow:0 15px 35px rgba(0,0,0,.28);
+}
+.ghat-card img{
+  display:block;
+  width:100%;
+  height:155px;
+  object-fit:cover;
+  background:linear-gradient(135deg,#244c31,#142017);
+}
+.ghat-card div{padding:15px}
+.ghat-card h4{margin:0 0 7px;color:#ffc0cc}
+.ghat-card p{margin:0;font-size:.92rem;line-height:1.55}
+.route-tag{
+  display:inline-block;
+  margin:8px 5px 0 0;
+  padding:5px 9px;
+  border-radius:999px;
+  background:rgba(239,35,60,.13);
+  border:1px solid rgba(255,117,143,.3);
+  color:#ffd8e0;
+  font-size:.78rem;
+}
+@media(max-width:600px){
+  .route-hero{min-height:265px}
+  .route-caption{padding:22px}
+  .ride-bike{font-size:44px}
+}
+
+</style>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="brand">KnowledgeBucks Cafe <span>~ Pranat</span></div>
+  <button class="menu-btn" aria-label="Menu">☰</button>
+  <nav class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="certifications.html">Certifications</a>
+    <a href="projects.html">Projects</a>
+    <a class="active" href="hobbies.html">Hobbies</a>
+    <a href="blogs.html">Blogs</a>
+    <a href="cloud-roadmap.html">Cloud Roadmap</a>
+    <a href="kucl-career.html">KUCL Career</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <span class="eyebrow">Beyond Technology</span>
+  <h1>My <span class="gradient">Hobbies</span></h1>
+  <p>Fitness, adventure, sports and reading keep me energetic, focused and curious. Click any card to explore useful guidance, recommendations and research links.</p>
+</section>
+
+<main class="grid">
+
+  <article class="card" onclick="openModal('gym')">
+    <div class="art">
+      <svg viewBox="0 0 600 360" role="img" aria-label="Woman exercising in gym">
+        <defs><linearGradient id="g1" x1="0" x2="1"><stop stop-color="#571827"/><stop offset="1" stop-color="#170a0f"/></linearGradient></defs>
+        <rect width="600" height="360" fill="url(#g1)"/>
+        <circle cx="470" cy="80" r="85" fill="#ef233c" opacity=".16"/>
+        <circle cx="300" cy="98" r="32" fill="#ffd7c8"/>
+        <path d="M270 132 Q300 112 330 132 L355 230 L245 230Z" fill="#ff5f7b"/>
+        <path d="M270 150 L205 210" stroke="#ffd7c8" stroke-width="24" stroke-linecap="round"/>
+        <path d="M330 150 L395 210" stroke="#ffd7c8" stroke-width="24" stroke-linecap="round"/>
+        <path d="M270 224 L225 320" stroke="#222" stroke-width="28" stroke-linecap="round"/>
+        <path d="M330 224 L375 320" stroke="#222" stroke-width="28" stroke-linecap="round"/>
+        <rect x="145" y="198" width="310" height="15" rx="7" fill="#cdd0d5"/>
+        <circle cx="140" cy="205" r="40" fill="#111"/>
+        <circle cx="460" cy="205" r="40" fill="#111"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h2>🏋️ Gym</h2>
+      <p>Strength training, calorie guidance and important exercises such as RDL, squats and presses.</p>
+      <span class="open-hint">Explore workout guide →</span>
+    </div>
+  </article>
+
+  <article class="card" onclick="openModal('swim')">
+    <div class="art">
+      <svg viewBox="0 0 600 360" role="img" aria-label="Woman swimming">
+        <defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#123a52"/><stop offset="1" stop-color="#071923"/></linearGradient></defs>
+        <rect width="600" height="360" fill="url(#g2)"/>
+        <path d="M0 230 Q80 190 160 230 T320 230 T480 230 T640 230 V360 H0Z" fill="#1782aa"/>
+        <path d="M0 260 Q80 220 160 260 T320 260 T480 260 T640 260" fill="none" stroke="#7ee7ff" stroke-width="8" opacity=".65"/>
+        <circle cx="320" cy="150" r="28" fill="#ffd7c8"/>
+        <path d="M275 180 Q320 155 370 190 L350 230 L270 220Z" fill="#ef476f"/>
+        <path d="M285 190 L175 155" stroke="#ffd7c8" stroke-width="20" stroke-linecap="round"/>
+        <path d="M350 195 L455 150" stroke="#ffd7c8" stroke-width="20" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h2>🏊 Swimming</h2>
+      <p>Understand freestyle, breaststroke, backstroke and butterfly with practical recommendations.</p>
+      <span class="open-hint">Explore swimming poses →</span>
+    </div>
+  </article>
+
+  <article class="card" onclick="openModal('football')">
+    <div class="art">
+      <svg viewBox="0 0 600 360" role="img" aria-label="Girl playing football">
+        <defs><linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#164c2e"/><stop offset="1" stop-color="#07190e"/></linearGradient></defs>
+        <rect width="600" height="360" fill="url(#g3)"/>
+        <circle cx="480" cy="90" r="80" fill="#f9c74f" opacity=".18"/>
+        <path d="M0 285 Q160 250 310 285 T620 275 V360 H0Z" fill="#1f7a42"/>
+        <circle cx="300" cy="82" r="28" fill="#ffd4c5"/>
+        <path d="M282 62 Q310 32 333 69 Q338 100 320 111 L278 104 Q270 82 282 62Z" fill="#28160e"/>
+        <path d="M265 118 Q300 100 338 125 L360 220 L250 220Z" fill="#ef233c"/>
+        <path d="M270 140 L205 192" stroke="#ffd4c5" stroke-width="20" stroke-linecap="round"/>
+        <path d="M330 142 L395 170" stroke="#ffd4c5" stroke-width="20" stroke-linecap="round"/>
+        <path d="M275 218 L205 305" stroke="#20252a" stroke-width="24" stroke-linecap="round"/>
+        <path d="M330 218 L420 280" stroke="#20252a" stroke-width="24" stroke-linecap="round"/>
+        <circle cx="470" cy="288" r="38" fill="#f7f7f7"/>
+        <path d="M445 272 L470 250 L495 272 L486 303 L454 303Z" fill="#222"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h2>⚽ Football</h2>
+      <p>Explore leading football countries, famous players and major international tournaments.</p>
+      <span class="open-hint">Explore football world →</span>
+    </div>
+  </article>
+
+  <article class="card" onclick="openModal('bike')">
+    <div class="art bike-art">
+      <svg viewBox="0 0 600 360" role="img" aria-label="Woman riding a motorcycle" preserveAspectRatio="xMidYMid meet">
+        <defs><linearGradient id="g4" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#3f1521"/><stop offset="1" stop-color="#0c080a"/></linearGradient></defs>
+        <rect width="600" height="360" fill="url(#g4)"/>
+        <circle cx="485" cy="72" r="92" fill="#ef233c" opacity=".13"/>
+        <path d="M0 318 H600" stroke="#84646c" stroke-width="7"/>
+        <circle cx="165" cy="270" r="58" fill="#111" stroke="#aaa" stroke-width="8"/>
+        <circle cx="435" cy="270" r="58" fill="#111" stroke="#aaa" stroke-width="8"/>
+        <path d="M165 270 L258 205 L350 270 L435 270 L360 195 L258 205Z" fill="none" stroke="#ef233c" stroke-width="18" stroke-linejoin="round"/>
+        <path d="M350 270 L310 205" stroke="#ddd" stroke-width="8"/>
+        <path d="M360 195 L412 176" stroke="#ddd" stroke-width="9" stroke-linecap="round"/>
+        <path d="M242 199 H310" stroke="#1c171a" stroke-width="15" stroke-linecap="round"/>
+        <!-- Rider positioned naturally on the seat -->
+        <circle cx="292" cy="116" r="28" fill="#ffd7c8"/>
+        <path d="M266 112 Q289 75 323 105 Q326 133 306 143 H276 Q261 130 266 112Z" fill="#222" stroke="#ff879c" stroke-width="6"/>
+        <path d="M270 148 Q298 132 326 154 L338 203 Q315 217 277 205Z" fill="#ff5e78"/>
+        <path d="M318 158 L372 180" stroke="#ffd7c8" stroke-width="17" stroke-linecap="round"/>
+        <path d="M282 198 L258 214 L238 250" stroke="#252025" stroke-width="19" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M320 201 L347 220 L372 250" stroke="#252025" stroke-width="19" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="374" cy="180" r="8" fill="#ffd7c8"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h2>🏍️ Bike Riding</h2>
+      <p>Explore scenic routes, mountain ghats and safe riding destinations across Maharashtra.</p>
+      <span class="open-hint">Explore riding guide →</span>
+    </div>
+  </article>
+
+  <article class="card" onclick="openModal('reading')">
+    <div class="art">
+      <svg viewBox="0 0 600 360" role="img" aria-label="Woman reading books">
+        <defs><linearGradient id="g5" x1="0" x2="1"><stop stop-color="#4b1725"/><stop offset="1" stop-color="#10080c"/></linearGradient></defs>
+        <rect width="600" height="360" fill="url(#g5)"/>
+        <rect x="70" y="85" width="75" height="215" rx="8" fill="#ef233c"/>
+        <rect x="150" y="115" width="75" height="185" rx="8" fill="#ff8fa3"/>
+        <rect x="230" y="70" width="75" height="230" rx="8" fill="#9d2235"/>
+        <circle cx="415" cy="105" r="31" fill="#ffd7c8"/>
+        <path d="M375 140 Q415 115 455 145 L470 260 H355Z" fill="#ef476f"/>
+        <path d="M360 205 L430 230 L490 205 L420 180Z" fill="#fff1e8"/>
+        <path d="M420 180 V230" stroke="#c9b3aa" stroke-width="4"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h2>📚 Reading</h2>
+      <p>Discover recommended books and selected research articles by Pranati Waghodekar.</p>
+      <span class="open-hint">Explore books & research →</span>
+    </div>
+  </article>
+
+</main>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true">
+  <div class="modal-content">
+    <button class="close" onclick="closeModal()" aria-label="Close">&times;</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<footer>KnowledgeBucks Cafe ~ Pranat · Certified · Curious · Creative</footer>
+
+<script>
+const content = {
+gym: `
+<h2>🏋️ Gym Fitness Guide</h2>
+<p class="note">Calorie values are estimates. Actual calories depend on body weight, intensity, fitness level and workout duration.</p>
+<div class="info-grid">
+  <div class="info-box"><strong>Weight Training</strong>Approximately 220–450 kcal/hour</div>
+  <div class="info-box"><strong>HIIT</strong>Approximately 450–800 kcal/hour</div>
+  <div class="info-box"><strong>Treadmill Running</strong>Approximately 500–900 kcal/hour</div>
+  <div class="info-box"><strong>Stationary Cycling</strong>Approximately 350–700 kcal/hour</div>
+</div>
+<h3>Important Exercises</h3>
+<ul>
+<li><b>Romanian Deadlift (RDL):</b> Strengthens hamstrings, glutes and lower back.</li>
+<li><b>Squats:</b> Builds lower-body strength and stability.</li>
+<li><b>Bench Press:</b> Targets chest, shoulders and triceps.</li>
+<li><b>Lat Pulldown:</b> Strengthens the upper back.</li>
+<li><b>Shoulder Press:</b> Builds shoulder strength.</li>
+<li><b>Hip Thrust:</b> Focuses on glute strength.</li>
+<li><b>Plank:</b> Improves core stability.</li>
+</ul>
+<h3>Simple Weekly Plan</h3>
+<p>Day 1: Lower body · Day 2: Upper body · Day 3: Rest or walking · Day 4: Full body · Day 5: Light cardio and mobility.</p>`,
+
+swim: `
+<h2>🏊 Swimming Strokes</h2>
+<div class="info-grid">
+  <div class="info-box"><strong>Freestyle</strong>Best overall choice for speed, endurance and calorie burning.</div>
+  <div class="info-box"><strong>Breaststroke</strong>Beginner-friendly and easier to perform at a relaxed pace.</div>
+  <div class="info-box"><strong>Backstroke</strong>Can support posture and shoulder mobility when performed correctly.</div>
+  <div class="info-box"><strong>Butterfly</strong>Advanced and highly demanding; requires strong technique.</div>
+</div>
+<h3>Best Pose for Most Swimmers</h3>
+<p><b>Freestyle</b> is usually the best starting choice because it combines speed, full-body movement and cardiovascular fitness.</p>
+<h3>Technique Tips</h3>
+<ul>
+<li>Keep your body long and close to the water surface.</li>
+<li>Turn your head sideways to breathe instead of lifting it high.</li>
+<li>Use steady kicks from the hips.</li>
+<li>Learn under supervision when practising a new stroke.</li>
+</ul>`,
+
+football: `
+<h2>⚽ Football Around the World</h2>
+<h3>Countries Known for Football</h3>
+<p>Brazil, Argentina, Germany, France, Spain, Italy, England, Portugal and the Netherlands.</p>
+<h3>Famous Players</h3>
+<ul>
+<li>Lionel Messi</li>
+<li>Cristiano Ronaldo</li>
+<li>Pelé</li>
+<li>Diego Maradona</li>
+<li>Zinedine Zidane</li>
+<li>Ronaldinho</li>
+<li>Marta</li>
+<li>Alexia Putellas</li>
+<li>Aitana Bonmatí</li>
+<li>Sam Kerr</li>
+</ul>
+<h3>Major Competitions</h3>
+<p>FIFA World Cup, FIFA Women's World Cup, UEFA Champions League, UEFA Women's Champions League, Copa América and UEFA European Championship.</p>`,
+
+bike: `
+<h2>🏍️ Maharashtra Bike-Riding Explorer</h2>
+
+<div class="route-hero">
+  <div class="route-caption">
+    <h3>Ride Through the Sahyadris</h3>
+  </div>
+  <div class="route-road"></div>
+  <div class="ride-bike" aria-hidden="true">🏍️</div>
+</div>
+
+<h3>Popular Explored Areas and Ghats</h3>
+<div class="ghat-gallery">
+
+  <article class="ghat-card">
+    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=82" alt="Misty green mountain route representing Tamhini Ghat" loading="lazy">
+    <div>
+      <h4>Tamhini Ghat</h4>
+      <p>A popular monsoon route known for green valleys, waterfalls, clouds and beautiful bends between Pune and the Konkan side.</p>
+      <span class="route-tag">Monsoon favourite</span><span class="route-tag">Waterfalls</span>
+    </div>
+  </article>
+
+  <article class="ghat-card">
+    <img src="https://images.unsplash.com/photo-1464278533981-50106e6176b1?auto=format&fit=crop&w=900&q=82" alt="Mountain road representing Malshej Ghat" loading="lazy">
+    <div>
+      <h4>Malshej Ghat</h4>
+      <p>Famous for dramatic cliffs, seasonal waterfalls, mountain views and a thrilling road through the Western Ghats.</p>
+      <span class="route-tag">Mountain curves</span><span class="route-tag">Scenic viewpoints</span>
+    </div>
+  </article>
+
+  <article class="ghat-card">
+    <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=900&q=82" alt="Cloudy mountain pass representing Varandha Ghat" loading="lazy">
+    <div>
+      <h4>Varandha Ghat</h4>
+      <p>A rugged and scenic route with deep valleys, cliffs and panoramic Sahyadri views. Best enjoyed cautiously in suitable weather.</p>
+      <span class="route-tag">Adventure route</span><span class="route-tag">Valley views</span>
+    </div>
+  </article>
+
+  <article class="ghat-card">
+    <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=82" alt="Green hills representing Bhor Ghat" loading="lazy">
+    <div>
+      <h4>Bhor Ghat</h4>
+      <p>A historic mountain passage near Khandala with railway views, lush slopes and convenient access from Pune and Mumbai.</p>
+      <span class="route-tag">Historic route</span><span class="route-tag">Weekend ride</span>
+    </div>
+  </article>
+
+  <article class="ghat-card">
+    <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=82" alt="Green valley representing Lonavala and Khandala" loading="lazy">
+    <div>
+      <h4>Lonavala–Khandala</h4>
+      <p>An easy and popular getaway offering viewpoints, lakes, forts and misty landscapes, especially during the rainy season.</p>
+      <span class="route-tag">Easy getaway</span><span class="route-tag">Viewpoints</span>
+    </div>
+  </article>
+
+  <article class="ghat-card">
+    <img src="https://images.unsplash.com/photo-1443632864897-14973fa006cf?auto=format&fit=crop&w=900&q=82" alt="Forest mountain road representing Amboli Ghat" loading="lazy">
+    <div>
+      <h4>Amboli Ghat</h4>
+      <p>A lush forest route in southern Maharashtra known for heavy monsoon greenery, waterfalls and biodiversity.</p>
+      <span class="route-tag">Forest ride</span><span class="route-tag">Nature</span>
+    </div>
+  </article>
+
+</div>
+
+<h3>Suggested Ride Experience</h3>
+<div class="info-grid">
+  <div class="info-box"><strong>Best Time</strong>Post-monsoon and winter usually provide pleasant views and comparatively safer road conditions.</div>
+  <div class="info-box"><strong>Start Early</strong>Leave early in daylight to avoid fog, traffic and late-night riding on unfamiliar roads.</div>
+  <div class="info-box"><strong>Weather Check</strong>Check rainfall, visibility, landslide warnings and road closures before starting.</div>
+  <div class="info-box"><strong>Ride Responsibly</strong>Slow down on blind curves, wet roads and waterfall crossings. Never stop in the middle of the road for photographs.</div>
+</div>
+
+<h3>Safety Checklist</h3>
+<ul>
+<li>Wear a properly fitting ISI/DOT/ECE-certified helmet.</li>
+<li>Use a riding jacket, gloves, full-length trousers and protective footwear.</li>
+<li>Check tyre pressure, brakes, lights, chain and fuel before the ride.</li>
+<li>Carry water, a first-aid kit, rain protection and essential documents.</li>
+<li>Avoid riding during severe rain, dense fog or when fatigued.</li>
+</ul>
+
+`,
+
+reading: `
+<h2>📚 Reading & My Research</h2>
+<h3>Recommended Books</h3>
+<div class="info-grid">
+  <div class="info-box"><strong>Cloud Native DevOps with Kubernetes</strong><a class="action-link" target="_blank" rel="noopener" href="https://www.oreilly.com/library/view/cloud-native-devops/9781492040750/">View Book</a></div>
+  <div class="info-box"><strong>The DevOps Handbook</strong><a class="action-link" target="_blank" rel="noopener" href="https://itrevolution.com/product/the-devops-handbook-second-edition/">View Book</a></div>
+  <div class="info-box"><strong>Clean Code</strong><a class="action-link" target="_blank" rel="noopener" href="https://www.pearson.com/en-us/subject-catalog/p/clean-code-a-handbook-of-agile-software-craftsmanship/P200000009044">View Book</a></div>
+  <div class="info-box"><strong>Atomic Habits</strong><a class="action-link" target="_blank" rel="noopener" href="https://jamesclear.com/atomic-habits">View Book</a></div>
+</div>
+
+<h3>Selected Articles by Pranati Waghodekar</h3>
+<div class="publication-card">
+  <h4>Big Data and Blockchain Synergies in Healthcare</h4>
+  <p>Research on the combined use of big data, artificial intelligence and blockchain in healthcare.</p>
+  <a class="action-link" target="_blank" rel="noopener" href="https://www.jneonatalsurg.com/index.php/jns/article/view/1780">Read Article</a>
+  <a class="action-link" target="_blank" rel="noopener" href="https://doi.org/10.52783/jns.v14.1780">Open DOI</a>
+</div>
+<div class="publication-card">
+  <h4>Blockchain for Healthcare Management: Enhancing Data Security and Transparency</h4>
+  <p>Research exploring secure and transparent blockchain-based healthcare data management.</p>
+  <a class="action-link" target="_blank" rel="noopener" href="https://www.seejph.com/index.php/seejph/article/view/3831">Read Article</a>
+  <a class="action-link" target="_blank" rel="noopener" href="https://doi.org/10.70135/seejph.vi.3831">Open DOI</a>
+</div>
+<div class="publication-card">
+  <h4>Complete Google Scholar Profile</h4>
+  <p>View publications, citations and additional research work.</p>
+  <a class="action-link" target="_blank" rel="noopener" href="https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=pranati+waghodekar&btnG=">Open Google Scholar</a>
+</div>`
+};
+
+function openModal(key){
+  document.getElementById('modalBody').innerHTML = content[key];
+  document.getElementById('modal').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('modal').classList.remove('active');
+  document.body.style.overflow='';
+}
+document.getElementById('modal').addEventListener('click',e=>{
+  if(e.target.id==='modal') closeModal();
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape') closeModal();
+});
+</script>
+</body>
+</html>

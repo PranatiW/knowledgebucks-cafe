@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="A conceptual article about Amazon S3 object storage.">
+<title>Amazon S3 Object Storage | KnowledgeBucks Cafe</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="navbar"><div class="brand"><div class="brand-mark">K</div>KnowledgeBucks Cafe <span>~ Pranat</span></div><button class="menu-btn" aria-label="Menu">☰</button><nav class="nav-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="certifications.html">Certifications</a><a href="projects.html">Projects</a><a href="hobbies.html">Hobbies</a><a href="blogs.html">Blogs</a><a href="cloud-roadmap.html">Cloud Roadmap</a><a href="kucl-career.html">KUCL Career</a><a href="contact.html">Contact</a></nav></header>
+
+<main class="container">
+<section class="page-hero">
+<div class="eyebrow">Amazon S3 · Object Storage</div>
+<h1>Amazon S3: More Than Just a Place to <span class="gradient">Store Files</span></h1>
+<p class="lead">Amazon S3 is an object-storage service used for application assets, backups, data lakes, logs, media, archives and static websites.</p>
+</section>
+
+<section class="card">
+<h2>Object storage thinks differently</h2>
+<p>Traditional file systems organise information using folders and disks. S3 stores each item as an object inside a bucket. Every object contains data, a key that identifies it and metadata that describes it. This approach allows storage to scale without requiring users to manage physical disks.</p>
+
+<h2>Durability and availability are different ideas</h2>
+<p>Durability concerns whether stored data remains safe over time. Availability concerns whether the service can be accessed when requested. Good architecture considers both instead of treating them as the same measurement.</p>
+
+<h2>Versioning protects against accidental changes</h2>
+<p>When versioning is enabled, S3 can preserve multiple versions of an object. If a file is overwritten or deleted accidentally, an earlier version may still be available. Versioning is therefore useful for recovery, auditing and controlled content updates.</p>
+
+<h2>Lifecycle rules turn storage into a policy</h2>
+<p>Not every object needs the same storage treatment forever. Recently created data may need frequent access, while older data may be retained only for compliance. Lifecycle rules can move objects to lower-cost storage classes or remove them after a defined period.</p>
+
+<h2>Security begins with access design</h2>
+<p>Buckets should not be made public unless the use case truly requires it. Access should be controlled using IAM permissions, bucket policies, encryption and logging. The safest design grants only the permissions required for a specific user, application or service.</p>
+
+<h2>Where S3 fits in modern architecture</h2>
+<ul>
+<li>Static website assets and downloadable content</li>
+<li>Application backups and disaster recovery</li>
+<li>Centralised logs and analytics data</li>
+<li>Images, videos and documents</li>
+<li>Data-lake storage for large-scale processing</li>
+</ul>
+
+<h2>The key idea</h2>
+<p>S3 becomes powerful when it is treated as an architectural service rather than a simple online folder. Its real value comes from scalability, policy-driven management, security integration and compatibility with many cloud services.</p>
+</section>
+</main>
+
+<a class="floating" href="https://whatsapp.com/channel/0029VbBzcChG8l5DwUrmSz0X" target="_blank">💬</a><footer>KnowledgeBucks Cafe ~ Pranat · Certified · Curious · Creative</footer><script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="KnowledgeBucks Cafe technical portfolio for cloud, DevOps and full stack learning.">
+  <title>About | KnowledgeBucks Cafe</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="navbar">
+  <div class="brand"><div class="brand-mark">K</div>KnowledgeBucks Cafe <span>~ Pranat</span></div>
+  <button class="menu-btn" aria-label="Menu">☰</button>
+  <nav class="nav-links">
+    <a href="index.html">Home</a><a href="about.html">About</a><a href="certifications.html">Certifications</a>
+    <a href="projects.html">Projects</a><a href="achievements.html">Achievements</a><a href="hobbies.html">Hobbies</a>
+    <a href="blogs.html">Blogs</a><a href="cloud-roadmap.html">Cloud Roadmap</a><a href="kucl-career.html">KUCL Career</a>
+    <a href="thoughts.html">Thoughts</a><a href="contact.html">Contact</a>
+  </nav>
+</header>
+<main class="container">
+  <section class="page-hero">
+    <div class="eyebrow">About</div>
+    <h1>A café for <span class="gradient">knowledge</span></h1>
+    <p class="lead">A certification-focused portfolio created to share technical learning, practical guidance and professional achievements.</p>
+  </section>
+
+  <section class="split about-intro">
+    <div>
+      <h2>Core interests</h2>
+      <p>Cloud computing, DevOps, AWS, Azure, Linux, containers, cybersecurity, blockchain and full-stack web development.</p>
+      <span class="badge">Cloud</span><span class="badge">DevOps</span><span class="badge">Cybersecurity</span>
+      <span class="badge">Blockchain</span><span class="badge">Full Stack</span>
+    </div>
+    <div class="art about-art"><img src="assets/cloud.svg" alt="Cloud technology illustration"></div>
+  </section>
+
+  <section class="profiles-section">
+    <div class="eyebrow">Connect with me</div>
+    <h2>My Professional Profiles</h2>
+    <p>Explore my educational content, professional updates and learning community. Please use all official channels responsibly.</p>
+    <div class="profile-grid">
+      <a class="profile-card youtube" href="#" data-secure-social="youtube">
+        <span class="profile-icon">▶</span><div><strong>YouTube</strong><small>Watch my educational video</small></div>
+      </a>
+      <a class="profile-card whatsapp" href="#" data-secure-social="whatsapp">
+        <span class="profile-icon">💬</span><div><strong>WhatsApp Channel</strong><small>Join the learning community</small></div>
+      </a>
+      <a class="profile-card linkedin" href="#" data-secure-social="linkedin">
+        <span class="profile-icon">in</span><div><strong>LinkedIn</strong><small>View my professional post</small></div>
+      </a>
+    </div>
+  </section>
+</main>
+<a class="floating" href="#" data-secure-social="whatsapp" aria-label="Enter details to open WhatsApp channel">💬</a>
+
+<div class="secure-social-modal" id="socialAccessModal" aria-hidden="true">
+  <div class="secure-social-dialog" role="dialog" aria-modal="true" aria-labelledby="secureAccessTitle">
+    <button class="secure-close" id="closeSocialAccess" aria-label="Close">×</button>
+    <div class="secure-icon">👤</div>
+    <h2 id="secureAccessTitle">Open <span id="selectedPlatformName">Profile</span></h2>
+    <p class="secure-intro">Please enter your name and email address before continuing to this profile.</p>
+
+    <form id="socialAccessForm" class="secure-form">
+      <label for="visitorName">Full Name</label>
+      <input id="visitorName" name="name" type="text" autocomplete="name" maxlength="80" required placeholder="Enter your full name">
+      <label for="visitorEmail">Email Address</label>
+      <input id="visitorEmail" name="email" type="email" autocomplete="email" maxlength="120" required placeholder="Enter your email address">
+      <button class="secure-primary" id="submitSocialAccess" type="submit">Continue to Profile</button>
+    </form>
+
+    <p id="socialAccessStatus" class="access-status" aria-live="polite"></p>
+    <p class="privacy-note">Your name, email address, selected profile, date and time will be recorded in the website access log.</p>
+  </div>
+</div>
+<footer>KnowledgeBucks Cafe ~ Pranat · Certified · Curious · Creative</footer>
+<script src="secure-config.js"></script>
+<script src="script.js"></script>
+<script src="social-access.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Professional achievements, intellectual property, publications, faculty development and leadership contributions of Prof. Pranati Waghodekar.">
+<title>Achievements & Impact | KnowledgeBucks Cafe</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.achievement-intro{max-width:800px}
+.achievement-toolbar{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0}
+.filter-btn{border:1px solid var(--line);background:#ffffff0b;color:#fff;padding:10px 16px;border-radius:999px;font-weight:800}
+.filter-btn.active,.filter-btn:hover{background:linear-gradient(90deg,var(--pink),var(--purple))}
+.achievement-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.achievement-card{position:relative;overflow:hidden;padding:24px;border-radius:25px;background:linear-gradient(145deg,#ffffff12,#ffffff06);border:1px solid var(--line);transition:.3s}
+.achievement-card:hover{transform:translateY(-7px);border-color:#ff71ad66;box-shadow:0 20px 45px #ff4f9a20}
+.achievement-card:before{content:"";position:absolute;inset:0 auto auto 0;width:100%;height:4px;background:linear-gradient(90deg,var(--pink),var(--purple))}
+.achievement-icon{font-size:2rem}.achievement-meta{display:flex;justify-content:space-between;gap:10px;margin:14px 0;color:var(--light);font-size:.82rem;font-weight:900;text-transform:uppercase;letter-spacing:.7px}
+.achievement-card h3{margin:7px 0 8px}.achievement-card p{margin-bottom:0}
+.achievement-link{display:inline-block;margin-top:14px;color:var(--light);font-weight:850;text-decoration:none}
+.impact-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:32px 0 8px}
+.impact-box{text-align:center;padding:20px;border-radius:20px;background:#ffffff0b;border:1px solid var(--line)}
+.impact-box strong{display:block;font-size:2rem;color:var(--light)}
+.owner-note{margin-top:35px;padding:20px;border-radius:20px;background:#ff4f9a12;border:1px solid #ff4f9a35}
+.empty-state{display:none;text-align:center;padding:40px;color:var(--muted)}
+@media(max-width:900px){.achievement-grid{grid-template-columns:repeat(2,1fr)}.impact-strip{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:720px){.achievement-grid,.impact-strip{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="navbar">
+<div class="brand"><div class="brand-mark">K</div>KnowledgeBucks Cafe <span>~ Pranat</span></div>
+<button class="menu-btn" aria-label="Menu">☰</button>
+<nav class="nav-links">
+<a href="index.html">Home</a><a href="about.html">About</a><a href="certifications.html">Certifications</a>
+<a href="projects.html">Projects</a><a href="achievements.html">Achievements</a><a href="hobbies.html">Hobbies</a>
+<a href="blogs.html">Blogs</a><a href="cloud-roadmap.html">Cloud Roadmap</a><a href="kucl-career.html">KUCL Career</a><a href="contact.html">Contact</a>
+</nav>
+</header>
+
+<main class="container">
+<section class="page-hero">
+<div class="eyebrow">A record of growth and contribution</div>
+<h1><span class="gradient">Achievements & Impact</span></h1>
+<p class="lead achievement-intro">A curated showcase of intellectual property, research publications, professional development, knowledge sharing and meaningful academic leadership.</p>
+
+<div class="impact-strip">
+<div class="impact-box"><strong id="countPatent">0</strong>Patents</div>
+<div class="impact-box"><strong id="countPublication">0</strong>Publications & Books</div>
+<div class="impact-box"><strong id="countLearning">0</strong>FDPs & Trainings</div>
+<div class="impact-box"><strong id="countLeadership">0</strong>Leadership & Events</div>
+</div>
+</section>
+
+<section>
+<h2>Milestones</h2>
+<div class="achievement-toolbar" id="filters"></div>
+<div class="achievement-grid" id="achievementGrid"></div>
+<div class="empty-state" id="emptyState">No achievements found in this category.</div>
+
+</section>
+</main>
+
+<footer>KnowledgeBucks Cafe ~ Pranat · Certified · Curious · Creative</footer>
+<script src="achievements-data.js"></script>
+<script src="script.js"></script>
+<script>
+const grid=document.getElementById("achievementGrid");
+const filters=document.getElementById("filters");
+const emptyState=document.getElementById("emptyState");
+const categories=["All",...new Set(ACHIEVEMENTS.map(item=>item.category))];
+
+function render(filter="All"){
+ const items=filter==="All"?ACHIEVEMENTS:ACHIEVEMENTS.filter(item=>item.category===filter);
+ grid.innerHTML=items.map(item=>`
+ <article class="achievement-card">
+   <div class="achievement-icon">${item.icon||"🏆"}</div>
+   <div class="achievement-meta"><span>${item.category}</span><span>${item.year}</span></div>
+   <h3>${item.title}</h3>
+   <p>${item.description}</p>
+   ${item.link?`<a class="achievement-link" href="${item.link}" target="_blank" rel="noopener">View official link →</a>`:""}
+ </article>`).join("");
+ emptyState.style.display=items.length?"none":"block";
+}
+
+filters.innerHTML=categories.map((cat,i)=>`<button class="filter-btn ${i===0?"active":""}" data-filter="${cat}">${cat}</button>`).join("");
+filters.addEventListener("click",e=>{
+ if(!e.target.matches(".filter-btn"))return;
+ document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));
+ e.target.classList.add("active");render(e.target.dataset.filter);
+});
+
+document.getElementById("countPatent").textContent=ACHIEVEMENTS.filter(x=>x.category==="Patent").length;
+document.getElementById("countPublication").textContent=ACHIEVEMENTS.filter(x=>["Publication","Book","Copyright"].includes(x.category)).length;
+document.getElementById("countLearning").textContent=ACHIEVEMENTS.filter(x=>["FDP","Training"].includes(x.category)).length;
+document.getElementById("countLeadership").textContent=ACHIEVEMENTS.filter(x=>["Leadership","Event","Academic"].includes(x.category)).length;
+render();
+</script>
+</body>
+</html>

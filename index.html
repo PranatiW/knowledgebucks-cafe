@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="KnowledgeBucks Cafe portfolio for cloud computing, DevOps, certifications, research and continuous learning." name="description"/>
+<title>KnowledgeBucks Cafe ~ Pranat</title>
+<style>
+:root{
+  --red:#ef233c;
+  --red-dark:#991b1b;
+  --pink:#fb7185;
+  --black:#080202;
+  --black-soft:#170508;
+  --white:#fff7f8;
+  --muted:#d9c7cb;
+  --card:rgba(255,255,255,.07);
+  --border:rgba(255,255,255,.14);
+  --shadow:0 20px 50px rgba(0,0,0,.42);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;cursor:none}
+html{scroll-behavior:smooth}
+
+body{
+  min-height:100vh;
+  overflow-x:hidden;
+  color:var(--white);
+  font-family:"Segoe UI",Arial,sans-serif;
+  background:
+    radial-gradient(circle at 15% 8%,rgba(239,35,60,.20),transparent 25%),
+    radial-gradient(circle at 85% 20%,rgba(127,29,29,.22),transparent 27%),
+    linear-gradient(135deg,var(--black),var(--black-soft),#27030a);
+}
+
+a{text-decoration:none;color:inherit}
+
+.star-cursor{
+  position:fixed;
+  z-index:99999;
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  filter:drop-shadow(0 0 7px #fff) drop-shadow(0 0 14px var(--pink));
+}
+.star-cursor::before{content:"★";font-size:19px;color:#fff}
+
+.trail-star{
+  position:fixed;
+  z-index:99998;
+  pointer-events:none;
+  color:var(--pink);
+  font-size:12px;
+  animation:trail .7s forwards;
+}
+@keyframes trail{
+  to{opacity:0;transform:translateY(-18px) scale(.2) rotate(100deg)}
+}
+
+.navbar{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  padding:15px 5%;
+  background:rgba(17,3,6,.94);
+  border-bottom:1px solid rgba(239,35,60,.2);
+  backdrop-filter:blur(16px);
+  box-shadow:0 8px 30px rgba(0,0,0,.25);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  white-space:nowrap;
+  font-weight:900;
+}
+.brand-mark{
+  width:43px;
+  height:43px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,var(--red),#7f1d1d);
+  box-shadow:0 10px 26px rgba(239,35,60,.28);
+}
+.brand span{color:var(--pink)}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:18px;
+}
+.nav-links a{
+  position:relative;
+  padding:8px 2px;
+  color:#f8eaed;
+  font-size:.93rem;
+  font-weight:700;
+  transition:.25s;
+}
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--red),var(--pink));
+  transition:.25s;
+}
+.nav-links a:hover{color:var(--pink);transform:translateY(-2px)}
+.nav-links a:hover::after{width:100%}
+
+.menu-btn{
+  display:none;
+  border:0;
+  background:none;
+  color:white;
+  font-size:1.8rem;
+}
+
+.hero{
+  width:min(1200px,100%);
+  min-height:72vh;
+  margin:auto;
+  padding:70px 6%;
+  display:grid;
+  grid-template-columns:1fr;
+  align-items:center;
+  gap:55px;
+}
+
+.eyebrow{
+  display:inline-block;
+  margin-bottom:18px;
+  padding:8px 14px;
+  border:1px solid rgba(251,113,133,.3);
+  border-radius:999px;
+  background:rgba(239,35,60,.09);
+  color:#fecdd3;
+  font-size:.84rem;
+  font-weight:900;
+  letter-spacing:1.3px;
+}
+
+.welcome-line{
+  font-size:clamp(2.6rem,5vw,4.8rem);
+  line-height:1.05;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.brand-title{
+  margin:6px 0 24px;
+  font-size:clamp(3rem,6vw,5.6rem);
+  line-height:1;
+  font-weight:950;
+  background:linear-gradient(90deg,#ff334f,#ff6a80,#ff9aae,#fecdd3);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+.lead{
+  max-width:760px;
+  color:var(--muted);
+  font-size:1.1rem;
+  line-height:1.8;
+}
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  margin-top:30px;
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:190px;
+  padding:13px 20px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  font-weight:900;
+  transition:.25s;
+}
+.btn.primary{
+  background:linear-gradient(135deg,var(--red),var(--red-dark));
+  box-shadow:0 12px 30px rgba(239,35,60,.24);
+}
+.btn.secondary{background:rgba(255,255,255,.06)}
+.btn:hover{
+  transform:translateY(-3px) scale(1.02);
+  box-shadow:0 0 24px rgba(239,35,60,.22);
+}
+
+.hero-card{
+  padding:18px;
+  border-radius:24px;
+  border:1px solid rgba(251,113,133,.35);
+  background:linear-gradient(145deg,rgba(255,255,255,.10),rgba(255,255,255,.035));
+  box-shadow:var(--shadow),0 0 26px rgba(239,35,60,.14);
+}
+.hero-card img{
+  display:block;
+  width:100%;
+  border-radius:16px;
+}
+.hero-caption{
+  padding:14px 8px 2px;
+  text-align:center;
+  color:var(--muted);
+  font-size:.92rem;
+}
+
+.marketing-section{
+  width:min(1500px,100%);
+  margin:auto;
+  padding:25px 6% 80px;
+}
+
+.marketing-wrap{
+  position:relative;
+  overflow:hidden;
+  border-radius:26px;
+  border:1px solid rgba(251,113,133,.32);
+  background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.03));
+  box-shadow:var(--shadow),0 0 35px rgba(239,35,60,.13);
+}
+
+.marketing-header{
+  padding:30px 24px 24px;
+  text-align:center;
+  background:linear-gradient(180deg,rgba(239,35,60,.13),transparent);
+}
+.marketing-header h2{
+  font-size:clamp(2rem,4vw,3.2rem);
+  margin-bottom:8px;
+}
+.marketing-header p{
+  color:#f8c8d0;
+  font-weight:700;
+  letter-spacing:.4px;
+}
+
+.marketing-image{
+  padding:0 18px 18px;
+}
+.marketing-image img{
+  display:block;
+  width:100%;
+  border-radius:18px;
+  box-shadow:0 18px 45px rgba(0,0,0,.35);
+}
+
+.marketing-cta{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:14px;
+  padding:0 24px 30px;
+}
+.marketing-cta a{
+  min-width:220px;
+}
+
+.section{
+  width:min(1450px,100%);
+  margin:auto;
+  padding:75px 6%;
+}
+.section-title{
+  max-width:800px;
+  margin:0 auto 38px;
+  text-align:center;
+}
+.section-title h2{
+  font-size:2.35rem;
+  margin-bottom:10px;
+}
+.section-title p{
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.cert-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:24px;
+}
+
+.cert-card{
+  min-height:250px;
+  padding:26px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  border-radius:20px;
+  border:1px solid var(--border);
+  background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.035));
+  box-shadow:0 15px 34px rgba(0,0,0,.25);
+  transition:.28s;
+}
+.cert-card:hover{
+  transform:translateY(-7px) scale(1.015);
+  border-color:rgba(251,113,133,.5);
+  box-shadow:0 0 28px rgba(239,35,60,.18),0 20px 38px rgba(0,0,0,.3);
+}
+
+.badge-symbol{
+  width:112px;
+  height:112px;
+  margin-bottom:18px;
+  border-radius:24px;
+  display:grid;
+  place-items:center;
+  font-size:1.4rem;
+  font-weight:950;
+  line-height:1.15;
+  border:2px solid rgba(255,255,255,.25);
+  box-shadow:inset 0 0 18px rgba(255,255,255,.08),0 12px 24px rgba(0,0,0,.25);
+}
+.aws{background:linear-gradient(145deg,#351100,#ff9900)}
+.azure{background:linear-gradient(145deg,#002b55,#0078d4)}
+.redhat{background:linear-gradient(145deg,#180000,#ee0000)}
+.sigma{background:linear-gradient(145deg,#062f1b,#15803d);color:#fef3c7}
+
+.cert-card h3{
+  margin-bottom:10px;
+  font-size:1.18rem;
+  font-weight:800;
+  color:#ffe8ec;
+  text-shadow:
+      0 0 8px rgba(251,113,133,.45),
+      0 0 18px rgba(239,35,60,.20);
+  line-height:1.45;
+}
+.cert-card p{
+  color:#f7d7dc;
+  font-size:.95rem;
+  line-height:1.7;
+}
+.click-note{
+  margin-top:14px;
+  color:#fda4af;
+  font-size:.82rem;
+  font-weight:800;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:5000;
+  padding:24px;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,.80);
+  backdrop-filter:blur(8px);
+}
+.modal.open{display:flex}
+
+.modal-box{
+  position:relative;
+  width:min(680px,100%);
+  max-height:88vh;
+  overflow:auto;
+  padding:34px;
+  border-radius:22px;
+  border:1px solid rgba(251,113,133,.4);
+  background:linear-gradient(145deg,#21070c,#0e0305);
+  box-shadow:0 0 35px rgba(239,35,60,.22),0 28px 70px rgba(0,0,0,.55);
+}
+.close-modal{
+  position:absolute;
+  right:18px;
+  top:14px;
+  border:0;
+  background:none;
+  color:white;
+  font-size:2rem;
+}
+.modal-box h2{
+  padding-right:40px;
+  margin-bottom:10px;
+  color:#fda4af;
+}
+.level{
+  display:inline-block;
+  margin:8px 0 18px;
+  padding:7px 12px;
+  border-radius:999px;
+  background:rgba(239,35,60,.12);
+  color:#fecdd3;
+  font-weight:800;
+}
+.modal-box p{
+  color:var(--muted);
+  line-height:1.75;
+  margin-bottom:14px;
+}
+.modal-box ul{
+  padding-left:21px;
+  color:var(--muted);
+  line-height:1.8;
+  margin-bottom:22px;
+}
+.register-btn{
+  display:inline-flex;
+  padding:13px 20px;
+  border-radius:11px;
+  background:linear-gradient(135deg,var(--red),var(--red-dark));
+  font-weight:900;
+}
+
+footer{
+  padding:24px 6%;
+  text-align:center;
+  color:#bea7ac;
+  border-top:1px solid rgba(255,255,255,.08);
+  background:rgba(13,2,4,.76);
+}
+
+@media(max-width:1100px){
+  .hero{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+  .lead{margin:auto}
+  .actions{justify-content:center}
+  .hero-card{max-width:1000px;margin:auto}
+  .cert-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+@media(max-width:760px){
+  *{cursor:auto}
+  .star-cursor,.trail-star{display:none}
+  .navbar{flex-wrap:wrap}
+  .menu-btn{display:block}
+  .nav-links{
+    display:none;
+    width:100%;
+    flex-direction:column;
+    align-items:flex-start;
+    padding-top:12px;
+  }
+  .nav-links.open{display:flex}
+  .hero{padding:55px 5%}
+  .welcome-line{white-space:normal}
+  .cert-grid{grid-template-columns:1fr}
+  .modal-box{padding:28px 22px}
+  .marketing-image{padding:0 8px 8px}
+}
+
+.thoughts-popup{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:7000;
+  padding:24px;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,.84);
+  backdrop-filter:blur(10px);
+}
+.thoughts-popup.open{display:flex}
+.thoughts-popup-box{
+  position:relative;
+  width:min(560px,100%);
+  padding:36px 30px 30px;
+  text-align:center;
+  border-radius:24px;
+  border:1px solid rgba(251,113,133,.45);
+  background:linear-gradient(145deg,#23070d,#0d0204);
+  box-shadow:0 0 38px rgba(239,35,60,.25),0 30px 75px rgba(0,0,0,.6);
+  animation:thoughtPopupIn .3s ease;
+}
+.thoughts-popup-icon{
+  font-size:3rem;
+  margin-bottom:12px;
+}
+.thoughts-popup-box h2{
+  color:#fda4af;
+  margin-bottom:12px;
+  font-size:2rem;
+}
+.thoughts-popup-box p{
+  color:var(--muted);
+  line-height:1.8;
+  font-size:1.05rem;
+}
+.thoughts-popup-actions{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:24px;
+}
+.thoughts-popup-close{
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.06);
+  color:white;
+}
+@keyframes thoughtPopupIn{
+  from{opacity:0;transform:translateY(18px) scale(.96)}
+  to{opacity:1;transform:none}
+}
+
+.mahakal{
+  text-align:center;
+  margin-bottom:24px;
+  font-size:44px;
+  color:#FFD700;
+  text-shadow:
+    0 0 10px rgba(255,215,0,.85),
+    0 0 24px rgba(255,90,70,.48);
+  animation:mahakalGlow 2.5s ease-in-out infinite alternate;
+}
+
+.mahakal span{
+  display:block;
+  margin-top:6px;
+  font-size:25px;
+  letter-spacing:5px;
+  font-weight:800;
+  color:#ffcc80;
+}
+
+@keyframes mahakalGlow{
+  from{
+    opacity:.86;
+    transform:translateY(0);
+  }
+  to{
+    opacity:1;
+    transform:translateY(-2px);
+  }
+}
+
+</style>
+</head>
+<body>
+<div class="star-cursor"></div>
+<header class="navbar">
+<div class="brand">
+<div class="brand-mark">K</div>
+    KnowledgeBucks Cafe <span>~ Pranat</span>
+</div>
+<nav class="nav-links">
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="#certifications">Certifications</a>
+<a href="projects.html">Projects</a><a href="achievements.html">Achievements</a><a href="thoughts.html" id="thoughtsNavLink">Thoughts</a>
+<a href="hobbies.html">Hobbies</a>
+<a href="blogs.html">Blogs</a>
+<a href="cloud-roadmap.html">Cloud Roadmap</a>
+<a href="kucl-career.html">KUCL Career</a>
+<a href="contact.html">Contact</a>
+</nav>
+<button aria-label="Open menu" class="menu-btn">☰</button>
+</header>
+<main>
+<section class="hero">
+<div style="max-width:900px;margin:auto;text-align:center;">
+
+<div class="mahakal" aria-label="Mahakal">
+  🔱
+  <span>महाकाल</span>
+</div>
+
+<div class="eyebrow">CERTIFIED · CURIOUS · CREATIVE</div>
+<h1 class="welcome-line">Welcome to</h1>
+<h2 class="brand-title">KnowledgeBucks Cafe</h2>
+<p class="lead">
+      A friendly technical space for cloud computing, DevOps, cybersecurity,
+      web development, research, certifications and continuous learning.
+    </p>
+<div class="actions" style="justify-content:center;">
+<a class="btn primary" href="#certifications">Explore Certifications</a>
+<a class="btn secondary" href="#global-showcase">View Global Badge Showcase</a>
+</div>
+</div>
+</section>
+<section class="marketing-section" id="global-showcase">
+<div class="marketing-wrap">
+<div class="marketing-header">
+<h2>Global Certification Showcase</h2>
+<p>Building Expertise. Delivering Excellence.</p>
+</div>
+<div class="marketing-image">
+<img alt="Complete global certification portfolio banner" src="my badges(1).png"/>
+</div>
+<div class="marketing-cta">
+<a class="btn primary" href="#certifications">Explore Every Certification</a>
+<a class="btn secondary" href="contact.html">Connect for Collaboration</a>
+</div>
+</div>
+</section>
+<section class="section" id="certifications">
+<div class="section-title">
+<h2>Explore My Certifications</h2>
+<p>
+      Click any badge to view its certification overview, major skills and official registration page.
+    </p>
+</div>
+<div class="cert-grid">
+<button class="cert-card" data-modal="aws-cp">
+<div class="badge-symbol aws">AWS<br/>Cloud</div>
+<h3>AWS Certified Cloud Practitioner</h3>
+<p>Foundational knowledge of AWS cloud concepts, services, security and billing.</p>
+<span class="click-note">Click for details →</span>
+</button>
+<button class="cert-card" data-modal="aws-saa">
+<div class="badge-symbol aws">AWS<br/>SAA</div>
+<h3>AWS Solutions Architect – Associate</h3>
+<p>Designing secure, resilient and cost-optimized cloud solutions on AWS.</p>
+<span class="click-note">Click for details →</span>
+</button>
+<button class="cert-card" data-modal="az900">
+<div class="badge-symbol azure">AZ<br/>900</div>
+<h3>Microsoft Azure Fundamentals</h3>
+<p>Azure cloud concepts, architecture, security, governance and pricing.</p>
+<span class="click-note">Click for details →</span>
+</button>
+<button class="cert-card" data-modal="az104">
+<div class="badge-symbol azure">AZ<br/>104</div>
+<h3>Azure Administrator Associate</h3>
+<p>Administration of Azure identities, storage, compute and networking.</p>
+<span class="click-note">Click for details →</span>
+</button>
+<button class="cert-card" data-modal="rhcsa">
+<div class="badge-symbol redhat">RHCSA</div>
+<h3>Red Hat Certified System Administrator</h3>
+<p>Core Red Hat Enterprise Linux system administration capabilities.</p>
+<span class="click-note">Click for details →</span>
+</button>
+<button class="cert-card" data-modal="rhce">
+<div class="badge-symbol redhat">RHCE</div>
+<h3>Red Hat Certified Engineer</h3>
+<p>Enterprise Linux administration and automation using Ansible.</p>
+<span class="click-note">Click for details →</span>
+</button>
+<button class="cert-card" data-modal="rhcva">
+<div class="badge-symbol redhat">RHCVA</div>
+<h3>Red Hat Virtualization Administrator</h3>
+<p>Deployment and management of enterprise virtualization infrastructure.</p>
+<span class="click-note">Click for details →</span>
+</button>
+<button class="cert-card" data-modal="directory">
+<div class="badge-symbol redhat">RH<br/>DSA</div>
+<h3>Directory Services &amp; Authentication</h3>
+<p>LDAP, Kerberos, centralized authentication and identity management.</p>
+<span class="click-note">Click for details →</span>
+</button>
+<button class="cert-card" data-modal="sigma">
+<div class="badge-symbol sigma">6σ<br/>GB</div>
+<h3>Six Sigma Green Belt</h3>
+<p>Process improvement, quality management and data-driven problem solving.</p>
+<span class="click-note">Click for details →</span>
+</button>
+</div>
+</section>
+</main>
+
+<div aria-hidden="true" class="thoughts-popup" id="thoughtsPopup">
+<div aria-labelledby="thoughtsPopupTitle" aria-modal="true" class="thoughts-popup-box" role="dialog">
+<div class="thoughts-popup-icon">💭</div>
+<h2 id="thoughtsPopupTitle">Read. Reflect. Act.</h2>
+<p>
+      Read the thoughts, reflect on their meaning, and apply them in your life.
+      Reading alone is not enough—real growth begins when thoughts are turned into action.
+    </p>
+<div class="thoughts-popup-actions">
+<a class="btn primary" href="thoughts.html">Continue to Thoughts</a>
+<button class="btn thoughts-popup-close" id="closeThoughtsPopup" type="button">Not Now</button>
+</div>
+</div>
+</div>
+<footer>
+  KnowledgeBucks Cafe ~ Pranat · Certified · Curious · Creative
+</footer>
+<div class="modal" id="aws-cp">
+<div class="modal-box">
+<button class="close-modal">×</button>
+<h2>AWS Certified Cloud Practitioner</h2>
+<span class="level">Foundational</span>
+<p>Validates a broad understanding of AWS Cloud concepts, security, services, pricing and support.</p>
+<ul>
+<li>AWS Cloud concepts</li>
+<li>Security and shared responsibility</li>
+<li>Core AWS services</li>
+<li>Billing, pricing and support</li>
+</ul>
+<a class="register-btn" href="https://aws.amazon.com/certification/certified-cloud-practitioner/" rel="noopener" target="_blank">Official Details &amp; Registration</a>
+</div>
+</div>
+<div class="modal" id="aws-saa">
+<div class="modal-box">
+<button class="close-modal">×</button>
+<h2>AWS Certified Solutions Architect – Associate</h2>
+<span class="level">Associate</span>
+<p>Validates the ability to design secure, resilient, high-performing and cost-optimized AWS architectures.</p>
+<ul>
+<li>Secure architectures</li>
+<li>Resilient architectures</li>
+<li>High-performing architectures</li>
+<li>Cost optimization</li>
+</ul>
+<a class="register-btn" href="https://aws.amazon.com/certification/certified-solutions-architect-associate/" rel="noopener" target="_blank">Official Details &amp; Registration</a>
+</div>
+</div>
+<div class="modal" id="az900">
+<div class="modal-box">
+<button class="close-modal">×</button>
+<h2>Microsoft Certified: Azure Fundamentals</h2>
+<span class="level">AZ-900</span>
+<p>Demonstrates foundational knowledge of cloud concepts and Microsoft Azure services.</p>
+<ul>
+<li>Cloud concepts</li>
+<li>Azure services and architecture</li>
+<li>Security and governance</li>
+<li>Pricing and support</li>
+</ul>
+<a class="register-btn" href="https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/" rel="noopener" target="_blank">Official Details &amp; Registration</a>
+</div>
+</div>
+<div class="modal" id="az104">
+<div class="modal-box">
+<button class="close-modal">×</button>
+<h2>Microsoft Certified: Azure Administrator Associate</h2>
+<span class="level">AZ-104</span>
+<p>Validates skills for implementing, managing and monitoring Microsoft Azure environments.</p>
+<ul>
+<li>Azure identities and governance</li>
+<li>Storage administration</li>
+<li>Compute resources</li>
+<li>Virtual networking and monitoring</li>
+</ul>
+<a class="register-btn" href="https://learn.microsoft.com/en-us/credentials/certifications/azure-administrator/" rel="noopener" target="_blank">Official Details &amp; Registration</a>
+</div>
+</div>
+<div class="modal" id="rhcsa">
+<div class="modal-box">
+<button class="close-modal">×</button>
+<h2>Red Hat Certified System Administrator</h2>
+<span class="level">RHCSA</span>
+<p>Validates core Red Hat Enterprise Linux system administration skills.</p>
+<ul>
+<li>User and permission management</li>
+<li>Storage and file systems</li>
+<li>Service management</li>
+<li>Basic security and troubleshooting</li>
+</ul>
+<a class="register-btn" href="https://www.redhat.com/en/services/certification/rhcsa" rel="noopener" target="_blank">Official Details &amp; Registration</a>
+</div>
+</div>
+<div class="modal" id="rhce">
+<div class="modal-box">
+<button class="close-modal">×</button>
+<h2>Red Hat Certified Engineer</h2>
+<span class="level">RHCE</span>
+<p>Validates enterprise Linux administration and automation using Ansible.</p>
+<ul>
+<li>Ansible automation</li>
+<li>Playbooks and inventories</li>
+<li>Linux service configuration</li>
+<li>Enterprise operations</li>
+</ul>
+<a class="register-btn" href="https://www.redhat.com/en/services/certification/red-hat-certified-engineer-in-enterprise-linux" rel="noopener" target="_blank">Official Details &amp; Registration</a>
+</div>
+</div>
+<div class="modal" id="rhcva">
+<div class="modal-box">
+<button class="close-modal">×</button>
+<h2>Red Hat Virtualization Administrator</h2>
+<span class="level">Virtualization</span>
+<p>Validates skills for deploying and managing Red Hat virtualization environments.</p>
+<ul>
+<li>Virtualization management</li>
+<li>Clusters and datacenters</li>
+<li>Hypervisors and virtual machines</li>
+<li>Templates and storage</li>
+</ul>
+<a class="register-btn" href="https://www.redhat.com/en/services/certification/rhcs-virtualization" rel="noopener" target="_blank">Official Details &amp; Registration</a>
+</div>
+</div>
+<div class="modal" id="directory">
+<div class="modal-box">
+<button class="close-modal">×</button>
+<h2>Directory Services and Authentication</h2>
+<span class="level">Identity &amp; Authentication</span>
+<p>Focuses on LDAP, Kerberos, centralized identity management and enterprise authentication.</p>
+<ul>
+<li>Directory services</li>
+<li>LDAP administration</li>
+<li>Kerberos authentication</li>
+<li>Centralized identity management</li>
+</ul>
+<a class="register-btn" href="https://www.redhat.com/en/services/certification/retired-rhcs-directory-services-authentication" rel="noopener" target="_blank">Official Credential Information</a>
+</div>
+</div>
+<div class="modal" id="sigma">
+<div class="modal-box">
+<button class="close-modal">×</button>
+<h2>Six Sigma Green Belt</h2>
+<span class="level">Quality &amp; Process Excellence</span>
+<p>Focuses on quality improvement, process analysis and structured problem solving.</p>
+<ul>
+<li>DMAIC methodology</li>
+<li>Root-cause analysis</li>
+<li>Process mapping</li>
+<li>Basic statistical analysis</li>
+</ul>
+<a class="register-btn" href="https://www.asq.org/cert/six-sigma-green-belt" rel="noopener" target="_blank">Official Certification Information</a>
+</div>
+</div>
+<script>
+const menuButton=document.querySelector(".menu-btn");
+const navLinks=document.querySelector(".nav-links");
+menuButton.addEventListener("click",()=>navLinks.classList.toggle("open"));
+
+const cursor=document.querySelector(".star-cursor");
+let lastTrail=0;
+
+document.addEventListener("mousemove",e=>{
+  cursor.style.left=e.clientX+"px";
+  cursor.style.top=e.clientY+"px";
+
+  const now=Date.now();
+
+  if(now-lastTrail>45){
+    const star=document.createElement("span");
+    star.className="trail-star";
+    star.textContent="✦";
+    star.style.left=e.clientX+"px";
+    star.style.top=e.clientY+"px";
+    document.body.appendChild(star);
+
+    setTimeout(()=>star.remove(),700);
+    lastTrail=now;
+  }
+});
+
+document.querySelectorAll(".cert-card").forEach(card=>{
+  card.addEventListener("click",()=>{
+    document.getElementById(card.dataset.modal).classList.add("open");
+    document.body.style.overflow="hidden";
+  });
+});
+
+function closeModal(modal){
+  modal.classList.remove("open");
+  document.body.style.overflow="";
+}
+
+document.querySelectorAll(".close-modal").forEach(button=>{
+  button.addEventListener("click",()=>closeModal(button.closest(".modal")));
+});
+
+document.querySelectorAll(".modal").forEach(modal=>{
+  modal.addEventListener("click",e=>{
+    if(e.target===modal)closeModal(modal);
+  });
+});
+
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){
+    document.querySelectorAll(".modal.open").forEach(closeModal);
+  }
+});
+</script>
+<script>
+const thoughtsNavLink = document.getElementById("thoughtsNavLink");
+const thoughtsPopup = document.getElementById("thoughtsPopup");
+const closeThoughtsPopup = document.getElementById("closeThoughtsPopup");
+
+if (thoughtsNavLink && thoughtsPopup) {
+  thoughtsNavLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    thoughtsPopup.classList.add("open");
+    thoughtsPopup.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  });
+}
+
+function closeThoughtsMessage() {
+  if (!thoughtsPopup) return;
+  thoughtsPopup.classList.remove("open");
+  thoughtsPopup.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+if (closeThoughtsPopup) {
+  closeThoughtsPopup.addEventListener("click", closeThoughtsMessage);
+}
+
+if (thoughtsPopup) {
+  thoughtsPopup.addEventListener("click", function(event) {
+    if (event.target === thoughtsPopup) closeThoughtsMessage();
+  });
+}
+
+document.addEventListener("keydown", function(event) {
+  if (event.key === "Escape") closeThoughtsMessage();
+});
+</script></body>
+</html>

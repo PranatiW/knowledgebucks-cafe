@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="A conceptual article on secure Amazon VPC design.">
+<title>Designing a Secure Amazon VPC | KnowledgeBucks Cafe</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="navbar"><div class="brand"><div class="brand-mark">K</div>KnowledgeBucks Cafe <span>~ Pranat</span></div><button class="menu-btn" aria-label="Menu">☰</button><nav class="nav-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="certifications.html">Certifications</a><a href="projects.html">Projects</a><a href="hobbies.html">Hobbies</a><a href="blogs.html">Blogs</a><a href="cloud-roadmap.html">Cloud Roadmap</a><a href="kucl-career.html">KUCL Career</a><a href="contact.html">Contact</a></nav></header>
+
+<main class="container">
+<section class="page-hero">
+<div class="eyebrow">AWS Networking · Cloud Architecture</div>
+<h1>Inside an Amazon VPC: Designing a <span class="gradient">Secure Cloud Network</span></h1>
+<p class="lead">A Virtual Private Cloud gives an organisation a logically isolated network in which cloud resources can communicate under controlled rules.</p>
+</section>
+
+<section class="card">
+<h2>The VPC is the network boundary</h2>
+<p>A VPC defines an address range and becomes the networking space for resources such as virtual machines, databases and load balancers. It allows architects to decide which systems may communicate internally and which systems may be reachable from outside.</p>
+
+<h2>Subnets separate responsibilities</h2>
+<p>Subnets divide the VPC into smaller network segments. Public-facing components may be placed in public subnets, while databases and internal services are commonly placed in private subnets. This separation reduces exposure and makes traffic control easier to understand.</p>
+
+<h2>Route tables decide where traffic goes</h2>
+<p>A route table contains rules that direct traffic toward local networks, gateways or other destinations. A subnet does not become public merely because it has a public IP address; it must also have an appropriate route to an internet gateway.</p>
+
+<h2>Security groups and network ACLs serve different purposes</h2>
+<p>Security groups are attached to resources and control allowed traffic. Network ACLs operate at the subnet boundary. Using both without understanding their roles can create confusing behaviour, so rules should remain simple, documented and intentional.</p>
+
+<h2>Public and private do not mean safe and unsafe</h2>
+<p>A public subnet is not automatically insecure, and a private subnet is not automatically secure. Security depends on routing, access rules, application configuration, identity controls, patching and monitoring.</p>
+
+<h2>A sensible three-tier design</h2>
+<ul>
+<li>A public load balancer receives user requests</li>
+<li>Application servers run in private subnets</li>
+<li>A database remains isolated from direct internet access</li>
+<li>Monitoring and logging provide visibility into network activity</li>
+</ul>
+
+<h2>The architectural lesson</h2>
+<p>A well-designed VPC limits unnecessary communication. Instead of asking, “How do I make everything connect?”, a better question is, “Which exact communication paths are required for this application to work?”</p>
+</section>
+</main>
+
+<a class="floating" href="https://whatsapp.com/channel/0029VbBzcChG8l5DwUrmSz0X" target="_blank">💬</a><footer>KnowledgeBucks Cafe ~ Pranat · Certified · Curious · Creative</footer><script src="script.js"></script>
+</body>
+</html>

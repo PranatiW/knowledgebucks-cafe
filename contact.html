@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="KnowledgeBucks Cafe technical portfolio for cloud, DevOps and full stack learning." name="description"/><title>Contact | KnowledgeBucks Cafe</title><link href="style.css" rel="stylesheet"/><style>
+.form-popup{
+  position:fixed;
+  inset:0;
+  z-index:5000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(5,0,6,.82);
+  backdrop-filter:blur(10px);
+}
+.form-popup.open{display:flex}
+.form-popup-box{
+  position:relative;
+  width:min(520px,100%);
+  padding:34px;
+  text-align:center;
+  border-radius:26px;
+  border:1px solid var(--line);
+  background:linear-gradient(145deg,#2a0c24,#120813);
+  box-shadow:0 25px 70px #0009,0 0 35px #ff4f9a35;
+  animation:popupIn .3s ease;
+}
+.form-popup-close{
+  position:absolute;
+  right:16px;
+  top:12px;
+  border:0;
+  background:none;
+  color:white;
+  font-size:2rem;
+  line-height:1;
+}
+.popup-icon{font-size:3.2rem;margin-bottom:10px}
+.form-popup-box h2{margin:0 0 10px;color:var(--light)}
+.form-popup-box p{margin:6px 0}
+.popup-note{margin-bottom:22px!important}
+@keyframes popupIn{
+  from{opacity:0;transform:translateY(18px) scale(.96)}
+  to{opacity:1;transform:none}
+}
+</style></head><body><header class="navbar"><div class="brand"><div class="brand-mark">K</div>KnowledgeBucks Cafe <span>~ Pranat</span></div><button aria-label="Menu" class="menu-btn">☰</button><nav class="nav-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="certifications.html">Certifications</a><a href="projects.html">Projects</a><a href="achievements.html">Achievements</a><a href="hobbies.html">Hobbies</a><a href="blogs.html">Blogs</a><a href="cloud-roadmap.html">Cloud Roadmap</a><a href="kucl-career.html">KUCL Career</a><a href="contact.html">Contact</a></nav></header><main class="container"><section class="page-hero"><div class="eyebrow">Connect</div><h1>Student <span class="gradient">Contact Portal</span></h1></section><section class="contact-layout"><div class="card"><form class="contact-form" id="studentForm"><input name="student_name" placeholder="Student name" required=""/><input name="email" placeholder="Email address" required="" type="email"/><select name="topic" required=""><option value="">Select topic</option><option>Cloud Computing</option><option>DevOps</option><option>Certification Guidance</option><option>Project Guidance</option></select><textarea name="message" placeholder="Write your message..." required=""></textarea><button class="btn primary">Transmit Message</button></form><div class="tech-message" id="techMessage"><div class="terminal-line">Your details have been received.</div><div class="terminal-line">U can do it – Go for certifications to test you!</div><div class="terminal-line">Opening the IT to IT Google Form...</div></div></div><div class="card helpdesk-card">
+  <div class="helpdesk-image-wrap"><img src="assets/robot.svg" alt="Digital Help Desk robot illustration"></div>
+  <h3>Digital Help Desk</h3>
+  <p>Submit your query for cloud, DevOps, certification or project guidance.</p>
+</div></section></main><a class="floating" href="https://whatsapp.com/channel/0029VbBzcChG8l5DwUrmSz0X" target="_blank">💬</a>
+<div aria-hidden="true" class="form-popup" id="formPopup">
+<div aria-labelledby="popupTitle" aria-modal="true" class="form-popup-box" role="dialog">
+<button aria-label="Close" class="form-popup-close" id="closeFormPopup">×</button>
+<div class="popup-icon">🚀</div>
+<h2 id="popupTitle">U can do it!</h2>
+<p>Go for certifications to test you.</p>
+<p class="popup-note">Please complete the IT to IT Google Form to continue.</p>
+<a class="btn primary" href="https://forms.gle/pqHsHsZvGNA6JNwN8" id="openGoogleForm" rel="noopener" target="_blank">
+      Fill Google Form
+    </a>
+</div>
+</div>
+<footer>KnowledgeBucks Cafe ~ Pranat · Certified · Curious · Creative</footer><script src="script.js"></script><script>
+const studentForm = document.getElementById("studentForm");
+const formPopup = document.getElementById("formPopup");
+const closeFormPopup = document.getElementById("closeFormPopup");
+const googleFormUrl = "https://forms.gle/pqHsHsZvGNA6JNwN8";
+
+if (studentForm && formPopup) {
+  studentForm.onsubmit = function (event) {
+    event.preventDefault();
+
+    const techMessage = document.getElementById("techMessage");
+    if (techMessage) techMessage.classList.add("show");
+
+    formPopup.classList.add("open");
+    formPopup.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+
+    studentForm.reset();
+
+    // Open the Google Form directly from the student's submit action.
+    // Browsers generally allow this because it happens inside the click/submit event.
+    window.open(googleFormUrl, "_blank", "noopener");
+  };
+}
+
+function closePopup() {
+  if (!formPopup) return;
+  formPopup.classList.remove("open");
+  formPopup.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+if (closeFormPopup) closeFormPopup.addEventListener("click", closePopup);
+
+if (formPopup) {
+  formPopup.addEventListener("click", function (event) {
+    if (event.target === formPopup) closePopup();
+  });
+}
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") closePopup();
+});
+</script></body></html>

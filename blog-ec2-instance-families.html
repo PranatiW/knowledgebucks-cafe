@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="A guide to choosing Amazon EC2 instance families.">
+<title>Choosing EC2 Instance Families | KnowledgeBucks Cafe</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="navbar"><div class="brand"><div class="brand-mark">K</div>KnowledgeBucks Cafe <span>~ Pranat</span></div><button class="menu-btn" aria-label="Menu">☰</button><nav class="nav-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="certifications.html">Certifications</a><a href="projects.html">Projects</a><a href="hobbies.html">Hobbies</a><a href="blogs.html">Blogs</a><a href="cloud-roadmap.html">Cloud Roadmap</a><a href="kucl-career.html">KUCL Career</a><a href="contact.html">Contact</a></nav></header>
+
+<main class="container">
+<section class="page-hero">
+<div class="eyebrow">Amazon EC2 · Compute Architecture</div>
+<h1>Choosing the Right EC2 Instance Family for <span class="gradient">Your Workload</span></h1>
+<p class="lead">The best virtual machine is not always the largest one. Good selection begins by understanding whether the workload is limited by CPU, memory, storage, networking or specialised acceleration.</p>
+</section>
+
+<section class="card">
+<h2>General-purpose instances</h2>
+<p>General-purpose families provide a balanced combination of processing, memory and networking. They are suitable for web servers, development environments, small databases and applications whose resource usage is reasonably balanced.</p>
+
+<h2>Compute-optimised instances</h2>
+<p>Compute-optimised families are designed for workloads that spend most of their time performing calculations. Examples include batch processing, scientific workloads, media encoding and high-performance application servers.</p>
+
+<h2>Memory-optimised instances</h2>
+<p>Memory-optimised families support applications that keep large amounts of active data in memory. They are commonly considered for in-memory databases, analytics platforms, caching systems and memory-intensive enterprise applications.</p>
+
+<h2>Storage-optimised instances</h2>
+<p>Storage-optimised families are useful when applications require high local-storage throughput or fast access to large datasets. They may be selected for data processing, search engines and workloads that perform heavy read-and-write operations.</p>
+
+<h2>Accelerated computing instances</h2>
+<p>Accelerated families use specialised hardware such as GPUs or other processors to handle machine learning, graphics, simulation and parallel computing tasks more efficiently than standard CPUs alone.</p>
+
+<h2>Do not choose only by vCPU count</h2>
+<p>Two instance families with similar processor counts may behave very differently because of memory, network bandwidth, storage options and processor architecture. Selection should therefore be based on workload measurements rather than assumptions.</p>
+
+<h2>A practical selection process</h2>
+<ol>
+<li>Identify the main resource bottleneck</li>
+<li>Choose a suitable instance family</li>
+<li>Begin with a reasonable size</li>
+<li>Measure CPU, memory, disk and network utilisation</li>
+<li>Resize or change families based on evidence</li>
+</ol>
+
+<h2>The cost lesson</h2>
+<p>Oversized instances waste money, while undersized instances create poor performance. Monitoring and right-sizing are therefore continuous responsibilities, not one-time deployment decisions.</p>
+</section>
+</main>
+
+<a class="floating" href="https://whatsapp.com/channel/0029VbBzcChG8l5DwUrmSz0X" target="_blank">💬</a><footer>KnowledgeBucks Cafe ~ Pranat · Certified · Curious · Creative</footer><script src="script.js"></script>
+</body>
+</html>
