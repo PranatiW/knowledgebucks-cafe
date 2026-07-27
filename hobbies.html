@@ -225,28 +225,32 @@ footer{
 .route-road{
   position:absolute;
   left:-10%;
-  bottom:-35px;
+  bottom:-28px;
   width:120%;
-  height:115px;
+  height:105px;
   background:#2b292a;
   border-top:4px solid rgba(255,255,255,.35);
   transform:rotate(-3deg);
+  transform-origin:center;
 }
 .route-road:after{
   content:"";
   position:absolute;
   left:0;
   right:0;
-  top:48px;
+  top:46px;
   height:6px;
   background:repeating-linear-gradient(90deg,#f7d45c 0 60px,transparent 60px 105px);
 }
 .ride-bike{
   position:absolute;
-  left:-120px;
-  bottom:62px;
-  font-size:54px;
-  filter:drop-shadow(0 8px 8px rgba(0,0,0,.5));
+  left:-90px;
+  bottom:28px;
+  z-index:3;
+  font-size:52px;
+  line-height:1;
+  transform-origin:center bottom;
+  filter:drop-shadow(0 8px 8px rgba(0,0,0,.55));
   animation:rideAcross 8s linear infinite;
 }
 .route-caption{
@@ -258,9 +262,24 @@ footer{
 .route-caption h3{margin:0 0 8px!important;color:#fff!important;font-size:1.8rem}
 .route-caption p{margin:0;color:#fff!important;text-shadow:0 2px 10px #000}
 @keyframes rideAcross{
-  0%{left:-120px;transform:translateY(0) rotate(-2deg)}
-  48%{transform:translateY(-4px) rotate(1deg)}
-  100%{left:105%;transform:translateY(0) rotate(-2deg)}
+  0%{
+    left:-90px;
+    bottom:28px;
+    transform:translateY(0) rotate(-3deg) scaleX(-1);
+  }
+  30%{
+    bottom:34px;
+    transform:translateY(-1px) rotate(-1deg) scaleX(-1);
+  }
+  60%{
+    bottom:40px;
+    transform:translateY(-2px) rotate(1deg) scaleX(-1);
+  }
+  100%{
+    left:105%;
+    bottom:45px;
+    transform:translateY(0) rotate(-3deg) scaleX(-1);
+  }
 }
 .ghat-gallery{
   display:grid;
@@ -298,7 +317,26 @@ footer{
 @media(max-width:600px){
   .route-hero{min-height:265px}
   .route-caption{padding:22px}
-  .ride-bike{font-size:44px}
+  .ride-bike{
+    font-size:40px;
+    bottom:24px;
+  }
+  @keyframes rideAcross{
+    0%{
+      left:-70px;
+      bottom:24px;
+      transform:translateY(0) rotate(-3deg) scaleX(-1);
+    }
+    50%{
+      bottom:31px;
+      transform:translateY(-1px) rotate(1deg) scaleX(-1);
+    }
+    100%{
+      left:105%;
+      bottom:36px;
+      transform:translateY(0) rotate(-3deg) scaleX(-1);
+    }
+  }
 }
 
 </style>
